@@ -661,7 +661,7 @@
                             <input type = "hidden" id = "nAdicionais">
                             <br>                           
 							<?php foreach($adicionais as $key => $value) :?>                          
-								<?= '<input class="form-control ckeckbox input-sm kb-pad" type="checkbox" value="'.$key.'" name="nAdicionais[]" style = "margin-bottom:2px;" /> ' . $value ?> <br>
+								<?= '<input class="form-control ckeckbox input-sm kb-pad ckb_adicionais" type="checkbox" value="'.$key.'" name="nAdicionais[]" style = "margin-bottom:2px;" /> ' . $value ?> <br>
 							<?php endforeach; ?>
                         </div>
 					</div>

@@ -17,9 +17,7 @@ class Settings extends MY_Controller
 
         $this->load->library('form_validation');
         $this->load->model('settings_model');
-
     }
-
 
     function index() {
 
@@ -356,6 +354,116 @@ class Settings extends MY_Controller
         unlink('./files/backups/' . $zipfile . '.zip');
         $this->session->set_flashdata('messgae', lang('backup_deleted'));
         redirect("settings/backups");
+    }
+
+    // adicionar slides
+    function slides($id = null){
+
+        if(DEMO) {
+            $this->session->set_flashdata('error', lang('disabled_in_demo'));
+            redirect(isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : 'welcome');
+        }
+
+        if (!$this->Admin) {
+            $this->session->set_flashdata('error', lang('access_denied'));
+            redirect("welcome");
+        }
+
+        if ($this->input->server('REQUEST_METHOD') == 'POST'){            
+            //atualizar o status
+            if(!is_null($this->input->post('id'))){
+                $status =  $this->input->post('status') == 1 ? 0 : 1;               
+                $data = ['status' => $status , 'id' => $this->input->post('id')];
+                if($this->settings_model->updateSlides($data)){
+                    $this->session->set_flashdata('message', 'Status atualizado com sucesso');
+                    echo json_encode(['sucesso' => true]);
+                    return;
+                }
+                $this->session->set_flashdata('error', 'Erro na atualização do status');
+                echo json_encode(['sucesso' => false]);
+                return;
+            }
+            
+            //inserir arquivo
+
+            //valida se ja existe arquivo com o mesmo nome
+            if($this->settings_model->existsSlidesName($_FILES['userfile']['name'])){
+                $this->session->set_flashdata('error', 'Já existe arquivo com o mesmo nome');
+                redirect('settings/slides');
+            }
+
+            $ext = pathinfo($_FILES['userfile']['name'] , PATHINFO_EXTENSION);
+            $this->load->library('upload');            
+            if ($_FILES['userfile']['size'] > 0) {
+                $this->load->library('upload');
+                $image  = ['gif','jpg','jpeg','png'];
+                $config['upload_path']   = 'uploads/slides/';
+                $config['overwrite'] = FALSE;
+                if(in_array($ext, $image)){                    
+                    $config['allowed_types'] = implode('|', $image);
+                    $config['max_size']      = '2097152';
+                    //$config['max_width'] = '300';
+                    //$config['max_height'] = '80';
+                }else{
+                    $config['upload_path']   = 'uploads/slides/';
+                    $config['allowed_types'] = 'mp4';
+                    $config['max_size']      = '10485760';
+                    //$config['max_width'] = '300';
+                    //$config['max_height'] = '80';                    
+                }
+                
+                $this->upload->initialize($config);
+                if (!$this->upload->do_upload()) {
+                    $error = $this->upload->display_errors();
+                    $this->session->set_flashdata('error', $error);
+                    redirect('settings/slides');                    
+                }   
+
+                $data = [
+                        'name'   => $_FILES['userfile']['name'], 
+                        'orders' => $this->input->post('order_slides'),
+                        'status' => $this->input->post('image_video'),
+                ];
+
+                if(!$this->settings_model->updateSlides($data)){
+                    $this->session->set_flashdata('error', 'Erro no cadastro do arquivo');
+                    redirect('settings/slides');
+                }
+                $this->session->set_flashdata('message', 'Arquivo adicionado com sucesso');
+
+            }else{
+                $error = $this->upload->display_errors();
+                $this->session->set_flashdata('error', 'Faltou selecionar um arquivo');
+                redirect('settings/slides');
+            }
+        }
+        
+        /*
+        if(!is_null($id)){
+            $this->data['dados'] = $this->settings_model->getSlidesId($id);
+            print_r($this->data['dados']);
+            die;
+        }
+        */
+
+        $this->data['status'] = $this->statusSlides();
+        $this->data['page_title'] = lang('slides');
+        $bc = array(array('link' => site_url('settings'), 'page' => lang('settings')), array('link' => '#', 'page' => lang('slides')));
+        $meta = array('page_title' => lang('slides'), 'bc' => $bc);
+        $this->page_construct('settings/slides', $this->data, $meta);
+    }
+
+    public function list_slides(){
+        $this->data['dados']  = $this->settings_model->getAllSlides();
+        $this->data['status'] = $this->statusSlides();
+        $this->data['page_title'] = lang('slides');
+        $bc = array(array('link' => '#', 'page' => lang('slides')));
+        $meta = array('page_title' => lang('slides'), 'bc' => $bc);
+        $this->page_construct('settings/list_slides', $this->data, $meta);
+    }
+
+    private function statusSlides(){
+        return [0 => 'Inativo' , 1 => 'Ativo'];
     }
 
 }

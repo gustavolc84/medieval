@@ -110,10 +110,21 @@ function loadItems() {
             
             var row_no = (new Date).getTime();
             var newTr = $('<tr id="' + row_no + '" class="' + item_id + '" data-item-id="' + item_id + '" data-item-category="'+ item.row.category_id +'"></tr>');
-            tr_html = '<td><input name="product_id[]" type="hidden" class="rid" value="' + product_id + '"><button type="button" class="btn bg-purple btn-block btn-xs edit" id="' + row_no + '" data-item="' + item_id + '"><span class="sname" id="name_' + row_no + '">' + item_name + ' (' + item_code + ')</span></button></td>';
-            // <input class="rprice" name="net_price[]" type="hidden" id="price_' + row_no + '" value="' + formatDecimal(item_price) + '">
-            tr_html += '<td class="text-right"><input class="realuprice" name="real_unit_price[]" type="hidden" value="' + item.row.real_unit_price + '"><input class="rdiscount" name="product_discount[]" type="hidden" id="discount_' + row_no + '" value="' + ds + '">'+
-                       '<input name="flavor[]" type="hidden" value = "'+ item.row.flavor +'"> <input name="adicionais[]" type="hidden" value = "'+ item.row.additionais +'"> <input name="item_note[]" type="hidden" value = "'+ item.row.item_note +'"> <span class="text-right sprice" id="sprice_' + row_no + '">' + formatMoney(parseFloat(net_price) + parseFloat(pr_tax_val)) + '</span></td>';
+            tr_html =   '<td>'+
+                            '<input name="product_id[]" type="hidden" class="rid" value="' + product_id + '">'+
+                            '<button type="button" class="btn bg-purple btn-block btn-xs edit" id="' + row_no + '" data-item="' + item_id + '">'+
+                                '<span class="sname" id="name_' + row_no + '">' + item_name + ' (' + item_code + ')</span>'+
+                            '</button>'+
+                        '</td>';
+            
+            tr_html += '<td class="text-right">'+
+                            '<input class="realuprice" name="real_unit_price[]" type="hidden" value="' + item.row.real_unit_price + '">'+
+                            '<input class="rdiscount" name="product_discount[]" type="hidden" id="discount_' + row_no + '" value="' + ds + '">'+
+                            '<input name="flavor[]" type="hidden" value = "'+ item.row.flavor +'">'+
+                            '<input name="adicionais[]" type="hidden" value = "'+ item.row.additionais +'">'+
+                            '<input name="item_note[]" type="hidden" value = "'+ item.row.item_note +'">'+
+                            '<span class="text-right sprice" id="sprice_' + row_no + '">' + formatMoney(parseFloat(net_price) + parseFloat(pr_tax_val)) + '</span>'+
+                       '</td>';
             tr_html += '<td><input class="form-control input-qty kb-pad text-center rquantity" name="quantity[]" type="text" value="' + formatDecimal(item_qty) + '" data-id="' + row_no + '" data-item="' + item_id + '" id="quantity_' + row_no + '" onClick="this.select();"></td>';
             tr_html += '<td class="text-right"><span class="text-right ssubtotal" id="subtotal_' + row_no + '">' + formatMoney(((parseFloat(net_price) + parseFloat(pr_tax_val)) * parseFloat(item_qty))) + '</span></td>';
             tr_html += '<td class="text-center"><i class="fa fa-trash-o tip pointer posdel" id="' + row_no + '" title="Remove"></i></td>';
@@ -339,9 +350,18 @@ $(document).ready(function(){
         $('#nPrice').val(unit_price);
         $('#nQuantity').val(item.row.qty);
         $('#nDiscount').val(ds);
-        $('#nFlavor').val(item.row.flavor);
-        $('#nItemNote').val(item.row.item_note);
-        $('#nAdicionais').val(item.row.additionais);
+        //$('#nFlavor option[value="0"]');//.val(/*item.row.flavor*/0);
+        $('#nFlavor').select2('val', 0);
+        //$('#nItemNote').val(item.row.item_note);
+        $('#nItemNote').val('');
+        //$('#nAdicionais').val(item.row.additionais);
+        var elemAdicionais = $('div > .icheckbox_square-green.checked');
+        elemAdicionais.each(function(){
+            console.log($(this).val());
+            $(this).removeProp("checked");
+        });
+        //$('.icheckbox_square-green , .ckb_adicionais').prop('checked',false);
+        
         $('#proModal').modal({backdrop:'static'});
     });
 

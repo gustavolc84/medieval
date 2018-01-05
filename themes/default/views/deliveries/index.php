@@ -1,17 +1,9 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed'); ?>
 <script type="text/javascript">
-    $(document).ready(function(){
-        
-        $('#fileData').dataTable({
-            "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, '<?= lang('all'); ?>']],
-            "aaSorting": [[ 1, "asc" ]], "iDisplayLength": <?= $Settings->rows_per_page ?>,
-            
-            'fnServerData': function (sSource, aoData, fnCallback) {
-                aoData.push({
-                    "name": "<?= $this->security->get_csrf_token_name() ?>",
-                    "value": "<?= $this->security->get_csrf_hash() ?>"
-                });
-            }            
+    $(document).ready(function(){        
+        $('#tableDados').dataTable({
+            "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "iDisplayLength": <?= $Settings->rows_per_page ?>,
         });
     });
 
@@ -25,7 +17,7 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        <table id="fileData" class="table table-striped table-bordered table-hover" style="margin-bottom:5px;">
+                        <table id="tableDados" class="table table-striped table-bordered table-hover" style="margin-bottom:5px;">
                             <thead>
                                 <tr class="active">
                                     <th class="col-xs-1"><?= lang("sale"); ?>      </th>

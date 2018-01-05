@@ -388,7 +388,6 @@ class Pos extends MY_Controller {
 		}
 	}
 
-
 	function get_product($code = NULL) {
 
 		if($this->input->get('code')) { $code = $this->input->get('code'); }

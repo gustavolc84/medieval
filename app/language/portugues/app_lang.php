@@ -483,6 +483,7 @@ $lang['employee_added']                     = "Funcionário Adicionado com suces
 $lang['type_employee']                      = "Tipo de Funcionário";
 
 $lang['deliveries']                         = "Entregas";
+$lang['reports_deliveries']                 = "Relatório de Entregas";
 $lang['list_deliveries']                    = "Lista de Entregas";
 $lang['add_delivery']                       = "Adicionar Entrega";
 $lang['delivery_added']                     = "Entrega Adicionada com sucesso";
@@ -496,5 +497,9 @@ $lang['delivery_error']                     = "Erro na atualizãção da entrega
 
 $lang['flavors']                            = "Sabores";
 $lang['additional']                         = "Adicional";
-
 $lang['item_note']                          = "Observação";
+$lang['slides']                             = "Slides";
+$lang['image_video']                        = "Imagem ou Vídeo";
+$lang['status_image_video']                 = "Status";
+$lang['add_slides']							= "Adicionar Slides";
+$lang['order_slides']					    = "Ordem do slide";

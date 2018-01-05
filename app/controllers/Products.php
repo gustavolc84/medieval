@@ -19,9 +19,6 @@ class Products extends MY_Controller
         $data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->data['page_title'] = lang('products');
         $bc = array(array('link' => '#', 'page' => lang('products')));
-        echo '<pre>';
-            print_r($bc);
-            die;
         $meta = array('page_title' => lang('products'), 'bc' => $bc);
         $this->page_construct('products/index', $this->data, $meta);
 

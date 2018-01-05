@@ -106,7 +106,7 @@
                                     <a href="<?= site_url('users/profile/'.$this->session->userdata('user_id')); ?>" class="btn btn-default btn-flat">Perfil</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="<?= site_url('logout'); ?>" class="btn btn-default btn-flat">Sairrr</a>
+                                    <a href="<?= site_url('logout'); ?>" class="btn btn-default btn-flat">Sair</a>
                                 </div>
                             </li>
                         </ul>
@@ -215,6 +215,9 @@
                         <li class="divider"></li>
                         <li id="suppliers_index"><a href="<?= site_url('suppliers'); ?>"><i class="fa fa-circle-o"></i> <?= lang('list_suppliers'); ?></a></li>
                         <li id="suppliers_add"><a href="<?= site_url('suppliers/add'); ?>"><i class="fa fa-circle-o"></i> <?= lang('add_supplier'); ?></a></li>
+                        <li class="divider"></li>
+                        <li id="employees_index"><a href="<?= site_url('employees'); ?>"><i class="fa fa-circle-o"></i> <?= lang('list_employees'); ?></a></li>
+                        <li id="employees_add"><a href="<?= site_url('employees/add'); ?>"><i class="fa fa-circle-o"></i> <?= lang('add_employees'); ?></a></li>
                     </ul>
                 </li>
 
@@ -228,6 +231,9 @@
                         <li id="settings_index"><a href="<?= site_url('settings'); ?>"><i class="fa fa-circle-o"></i> <?= lang('settings'); ?></a></li>
                         <li id="settings_backups"><a href="<?= site_url('settings/backups'); ?>"><i class="fa fa-circle-o"></i> <?= lang('backups'); ?></a></li>
                         <li id="settings_updates"><a href="<?= site_url('settings/updates'); ?>"><i class="fa fa-circle-o"></i> <?= lang('updates'); ?></a></li>
+                        <li class="divider"></li>
+                        <li id="settings_slides"><a href="<?= site_url('settings/list_slides'); ?>"><i class="fa fa-circle-o"></i> Lista de slides </a></li>                        
+                        <li id="settings_slides"><a href="<?= site_url('settings/slides'); ?>"><i class="fa fa-circle-o"></i> <?= lang('add_slides'); ?></a></li>
                     </ul>
                 </li>
                 <li class="treeview mm_reports">
@@ -247,6 +253,8 @@
                         <li class="divider"></li>
                         <li id="reports_top_products"><a href="<?= site_url('reports/top_products'); ?>"><i class="fa fa-circle-o"></i> <?= lang('top_products'); ?></a></li>
                         <li id="reports_products"><a href="<?= site_url('reports/products'); ?>"><i class="fa fa-circle-o"></i> <?= lang('products_report'); ?></a></li>
+                        <li class="divider"></li>
+                        <li id="reports_deliveries"><a href="<?= site_url('deliveries'); ?>"><i class="fa fa-circle-o"></i> <?= lang('reports_deliveries'); ?></a></li>
                     </ul>
                 </li>
                 <?php } else { ?>

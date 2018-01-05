@@ -8,9 +8,11 @@
             }
             return '';
         }
+        
         function method(n) {
             return (n == 0) ? '<span class="label label-primary"><?= lang('inclusive'); ?></span>' : '<span class="label label-warning"><?= lang('exclusive'); ?></span>';
         }
+
         $('#fileData').dataTable( {
             "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, '<?= lang('all'); ?>']],
             "aaSorting": [[ 1, "asc" ]], "iDisplayLength": <?= $Settings->rows_per_page ?>,
@@ -25,7 +27,7 @@
             },
             "aoColumns": [{"mRender":image,"bSortable":false}, null, null, null, null, null, null, {"mRender":method}, <?= $Admin ? '{"mRender":currencyFormat},' : ''; ?> {"mRender":currencyFormat}, {"bSortable":false, "bSearchable": false},null]
         });
-        //{"data":"tax_method","render":method},
+        
         $('#fileData').on('click', '.image', function() {
             var a_href = $(this).attr('href');
             var code = $(this).attr('id');
@@ -34,6 +36,7 @@
             $('#picModal').modal();
             return false;
         });
+
         $('#fileData').on('click', '.barcode', function() {
             var a_href = $(this).attr('href');
             var code = $(this).attr('id');
@@ -42,6 +45,7 @@
             $('#picModal').modal();
             return false;
         });
+
         $('#fileData').on('click', '.open-image', function() {
             var a_href = $(this).attr('href');
             var code = $(this).closest('tr').find('.image').attr('id');
@@ -50,8 +54,6 @@
             $('#picModal').modal();
             return false;
         });
-
-
     });
 
 </script>
