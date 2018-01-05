@@ -355,11 +355,13 @@ $(document).ready(function(){
         //$('#nItemNote').val(item.row.item_note);
         $('#nItemNote').val('');
         //$('#nAdicionais').val(item.row.additionais);
+        /*
         var elemAdicionais = $('div > .icheckbox_square-green.checked');
         elemAdicionais.each(function(){
             console.log($(this).val());
             $(this).removeProp("checked");
         });
+        */
         //$('.icheckbox_square-green , .ckb_adicionais').prop('checked',false);
         
         $('#proModal').modal({backdrop:'static'});
